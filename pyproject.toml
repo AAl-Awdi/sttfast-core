@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sttfast-core"                 # distribution name (pip install sttfast-core)
+version = "0.1.0"
+description = "Lightweight, GPU-accelerated local STT backend + CLI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{ name = "Your Name" }]
+
+# Keep base deps small; CUDA-specific bits are optional at install time
+dependencies = [
+  "typer>=0.12",
+  "rich>=13",
+  "faster-whisper>=1.0.0",
+  "vaderSentiment>=3.3.2",
+]
+
+[project.optional-dependencies]
+cuda = ["ctranslate2>=4.4.0"]
+
+[project.scripts]
+sttfast = "sttfast.cli:app"           # `sttfast` command -> your Typer app
+
+[tool.setuptools]
+packages = ["sttfast"]                # your current folder (no /src layout)
+include-package-data = true
